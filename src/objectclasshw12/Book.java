@@ -1,5 +1,7 @@
 package objectclasshw12;
 
+import java.util.Objects;
+
 public class Book {
     private String name;
     private Author author;
@@ -22,5 +24,17 @@ public class Book {
     }
     public void setPublishYear(int year){
         publishYear = year;
+    }
+    public String toString(){
+        return "Книга "+getName()+" написанная в "+getPublishYear()+" году автором "+getAuthor().toString();
+    }
+    public boolean equals(Book anotherBook){
+        return getAuthor().equals(anotherBook.getAuthor()) && getName().equals(anotherBook.getName())
+                && getPublishYear() == anotherBook.getPublishYear();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getAuthor(), getPublishYear());
     }
 }
