@@ -17,11 +17,17 @@ public class Author {
     public String getLastName(){
         return lastName;
     }
+    @Override
     public String toString(){
         return getFirstName()+" "+getLastName();
     }
-    public boolean equals(Author anotherAuthor){
-        return getFirstName().equals(anotherAuthor.getFirstName()) && getLastName().equals(anotherAuthor.getLastName());
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return Objects.equals(getFirstName(), author.getFirstName()) && Objects.equals(getLastName(), author.getLastName());
     }
 
     @Override
