@@ -19,6 +19,11 @@ public class Cursework1 {
         System.out.println("getIdEmpMaxSalary= "+getIdEmpMaxSalary(employees));
         System.out.println("getMiddleSalary="+getMiddleSalary(employees));
         getNameListEmp(employees);
+        indexingSalary(10,employees);
+        getListEmp(employees);
+        infoDepart(1,employees);
+        selectMinSalary(10000, employees);
+        selectMaxSalary(40000, employees);
     }
     //Базовая сложность
     public static void getListEmp(Employee[] emp){
@@ -66,8 +71,61 @@ public class Cursework1 {
         }
     }
     //Повышенная сложность
-    public static void indexingSalary(int rate){
-        float temp = 100/(float)rate;
+    public static void indexingSalary(int rate, Employee[] emp){
+        float temp = (float)rate/100;
+        for(Employee employee : emp){
+            employee.setSalary((int)(employee.getSalary()+employee.getSalary()*temp));
+        }
+    }
+    public static int searchByID(int id, Employee[] emp){
+        for(int i = 0; i < emp.length;i++){
+            if(emp[i].getId() == id) return i;
+        }
+        throw new IllegalArgumentException("ID не найден");
+    }
+    public static void infoDepart(int depart, Employee[] emp){
+        int maxIndex = 0;
+        for(Employee employee : emp){
+            if(employee.getDepart() == depart){
+                maxIndex++;
+            }
+        }
+        Employee[] temp = new Employee[maxIndex];
+        for(Employee employee:emp){
+            if(employee.getDepart() == depart){
+                for(int i = 0; i < temp.length; i++){
+                    if(temp[i] == null){
+                        temp[i] = employee;
+                        break;
+                    }
+                }
+            }
+        }
+        System.out.println("Минимальная зарплата по отделу: "+temp[searchByID(getIdEmpMinSalary(temp),temp)].toString());
+        System.out.println("Максимальная зарплата по отделу: "+temp[searchByID(getIdEmpMaxSalary(temp),temp)].toString());
+        System.out.println("Сумма затрат на зарплату по отделу: "+getSumSalary(temp));
+        System.out.println("Средняя зарплата по отделу: "+getMiddleSalary(temp));
+        indexingSalary(10,temp);
+        for(Employee employee:temp){
+            System.out.println("Сотрудник: "+employee.getLastName()+" "+employee.getFirstName()+" "+employee.getSurName()+
+                    "; Зарплата: "+employee.getSalary()+" руб. ID в общей БД: "+employee.getId());
+        }
+    }
 
+    public static void selectMinSalary(int salary, Employee[] emp){
+        for(Employee employee : emp){
+            if(employee.getSalary() < salary){
+                System.out.println("Сотрудник: "+employee.getLastName()+" "+employee.getFirstName()+" "+employee.getSurName()+
+                        "; Зарплата: "+employee.getSalary()+" руб. ID в общей БД: "+employee.getId());
+            }
+        }
+    }
+    public static void selectMaxSalary(int salary, Employee[] emp){
+        for(Employee employee : emp){
+            if(employee.getSalary() > salary){
+                System.out.println("Сотрудник: "+employee.getLastName()+" "+employee.getFirstName()+" "+employee.getSurName()+
+                        "; Зарплата: "+employee.getSalary()+" руб. ID в общей БД: "+employee.getId());
+            }
+        }
     }
 }
