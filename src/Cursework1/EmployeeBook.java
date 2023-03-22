@@ -8,6 +8,9 @@ public class EmployeeBook {
             System.out.println(employee.toString());
         }
     }
+    public String getEmpFromList(int index){
+        return this.employees[index].toString();
+    }
     public int getSumSalary(){
         int sum = 0;
         for (Employee employee : this.employees) {
@@ -31,7 +34,7 @@ public class EmployeeBook {
                 temp1 = employee;
             }
         }
-        return temp1.getId();
+        return searchByID(temp1.getId(),this.employees);
     }
     public int getIdEmpMinSalary(Employee[] emp){
         int temp = Integer.MAX_VALUE;
@@ -54,7 +57,7 @@ public class EmployeeBook {
                 temp1 = employee;
             }
         }
-        return temp1.getId();
+        return searchByID(temp1.getId(),this.employees);
     }
     public int getIdEmpMaxSalary(Employee[] emp){
         int temp = Integer.MIN_VALUE;
@@ -105,7 +108,14 @@ public class EmployeeBook {
         }
         throw new IllegalArgumentException("Сотрудник не найден");
     }
-    public void infoDepart(int depart){
+    public int searchByName(String lastName, String firstName, String surName){
+        for(int i = 0; i < this.employees.length;i++){
+            if(this.employees[i].getLastName().equals(lastName) && this.employees[i].getFirstName().equals(firstName) && this.employees[i].getSurName().equals(surName))
+                return i;
+        }
+        throw new IllegalArgumentException("Сотрудник не найден");
+    }
+    public void infoDepart(int depart, int indexation){
         int maxIndex = 0;
         for(Employee employee : this.employees){
             if(employee.getDepart() == depart){
@@ -127,7 +137,7 @@ public class EmployeeBook {
         System.out.println("Максимальная зарплата по отделу: "+temp[searchByID(getIdEmpMaxSalary(temp),temp)].toString());
         System.out.println("Сумма затрат на зарплату по отделу: "+getSumSalary(temp));
         System.out.println("Средняя зарплата по отделу: "+getMiddleSalary(temp));
-        indexingSalary(10,temp);
+        indexingSalary(indexation,temp);
         for(Employee employee:temp){
             System.out.println("Сотрудник: "+employee.getLastName()+" "+employee.getFirstName()+" "+employee.getSurName()+
                     "; Зарплата: "+employee.getSalary()+" руб. ID в общей БД: "+employee.getId());
