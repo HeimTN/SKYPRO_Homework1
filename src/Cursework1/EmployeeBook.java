@@ -14,13 +14,15 @@ public class EmployeeBook {
     public int getSumSalary(){
         int sum = 0;
         for (Employee employee : this.employees) {
+            if(employee != null)
             sum += employee.getSalary();
         }
         return sum;
     }
-    public int getSumSalary(Employee[] emp){
+    private int getSumSalary(Employee[] emp){
         int sum = 0;
         for (Employee employee : emp) {
+            if(employee != null)
             sum += employee.getSalary();
         }
         return sum;
@@ -29,18 +31,18 @@ public class EmployeeBook {
         int temp = Integer.MAX_VALUE;
         Employee temp1 = null;
         for (Employee employee : this.employees) {
-            if (temp > employee.getSalary()) {
+            if (employee != null && temp > employee.getSalary()) {
                 temp = employee.getSalary();
                 temp1 = employee;
             }
         }
         return searchByID(temp1.getId(),this.employees);
     }
-    public int getIdEmpMinSalary(Employee[] emp){
+    private int getIdEmpMinSalary(Employee[] emp){
         int temp = Integer.MAX_VALUE;
         Employee temp1 = null;
         for (Employee employee : emp) {
-            if (temp > employee.getSalary()) {
+            if (employee != null && temp > employee.getSalary()) {
                 temp = employee.getSalary();
                 temp1 = employee;
             }
@@ -52,18 +54,18 @@ public class EmployeeBook {
         int temp = Integer.MIN_VALUE;
         Employee temp1 = null;
         for (Employee employee : this.employees) {
-            if (temp < employee.getSalary()) {
+            if (employee != null && temp < employee.getSalary()) {
                 temp = employee.getSalary();
                 temp1 = employee;
             }
         }
         return searchByID(temp1.getId(),this.employees);
     }
-    public int getIdEmpMaxSalary(Employee[] emp){
+    private int getIdEmpMaxSalary(Employee[] emp){
         int temp = Integer.MIN_VALUE;
         Employee temp1 = null;
         for (Employee employee : emp) {
-            if (temp < employee.getSalary()) {
+            if (employee != null && temp < employee.getSalary()) {
                 temp = employee.getSalary();
                 temp1 = employee;
             }
@@ -74,24 +76,28 @@ public class EmployeeBook {
     public int getMiddleSalary(){
         return getSumSalary()/this.employees.length;
     }
-    public int getMiddleSalary(Employee[] emp){
+    private int getMiddleSalary(Employee[] emp){
         return getSumSalary(emp)/emp.length;
     }
     public void getNameListEmp(){
         for (Employee employee : this.employees) {
+            if(employee != null)
             System.out.println(employee.getId() + ". Фамилия: " + employee.getLastName() + " Имя: " + employee.getFirstName() + " Отчетсво: " + employee.getSurName());
+            else System.out.println("Сотрудник отсутсвует");
         }
     }
     //Повышенная сложность
     public void indexingSalary(int rate){
         float temp = (float)rate/100;
         for(Employee employee : this.employees){
+            if(employee != null)
             employee.setSalary((int)(employee.getSalary()+employee.getSalary()*temp));
         }
     }
-    public void indexingSalary(int rate, Employee[] emp){
+    private void indexingSalary(int rate, Employee[] emp){
         float temp = (float)rate/100;
         for(Employee employee : emp){
+            if (employee != null)
             employee.setSalary((int)(employee.getSalary()+employee.getSalary()*temp));
         }
     }
@@ -101,7 +107,7 @@ public class EmployeeBook {
         }
         throw new IllegalArgumentException("ID не найден");
     }
-    public int searchByName(String lastName, String firstName, String surName, Employee[] emp){
+    private int searchByName(String lastName, String firstName, String surName, Employee[] emp){
         for(int i = 0; i < emp.length;i++){
             if(emp[i].getLastName().equals(lastName) && emp[i].getFirstName().equals(firstName) && emp[i].getSurName().equals(surName))
                 return i;
@@ -124,7 +130,7 @@ public class EmployeeBook {
         }
         Employee[] temp = new Employee[maxIndex];
         for(Employee employee:this.employees){
-            if(employee.getDepart() == depart){
+            if(employee != null && employee.getDepart() == depart){
                 for(int i = 0; i < temp.length; i++){
                     if(temp[i] == null){
                         temp[i] = employee;
@@ -192,25 +198,12 @@ public class EmployeeBook {
         else throw new IllegalArgumentException("Неверные входные данные для изменения сотрудника");
     }
     public void getListDepart(){
-        System.out.println("Отдел 1");
+        for(int i = 1; i < 6; i++) printDepart(i);
+    }
+    private void printDepart(int depart){
+        System.out.println("Отдел "+ depart);
         for (Employee employee : this.employees)
-            if(employee.getDepart() == 1)
-                System.out.println("Сотрудник: "+employee.getLastName()+" "+employee.getFirstName()+" "+employee.getSurName());
-        System.out.println("Отдел 2");
-        for (Employee employee : this.employees)
-            if(employee.getDepart() == 2)
-                System.out.println("Сотрудник: "+employee.getLastName()+" "+employee.getFirstName()+" "+employee.getSurName());
-        System.out.println("Отдел 3");
-        for (Employee employee : this.employees)
-            if(employee.getDepart() == 3)
-                System.out.println("Сотрудник: "+employee.getLastName()+" "+employee.getFirstName()+" "+employee.getSurName());
-        System.out.println("Отдел 4");
-        for (Employee employee : this.employees)
-            if(employee.getDepart() == 4)
-                System.out.println("Сотрудник: "+employee.getLastName()+" "+employee.getFirstName()+" "+employee.getSurName());
-        System.out.println("Отдел 5");
-        for (Employee employee : this.employees)
-            if(employee.getDepart() == 5)
+            if(employee.getDepart() == depart)
                 System.out.println("Сотрудник: "+employee.getLastName()+" "+employee.getFirstName()+" "+employee.getSurName());
     }
 }

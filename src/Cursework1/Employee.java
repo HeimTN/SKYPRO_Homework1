@@ -45,6 +45,8 @@ public class Employee {
     }
     @Override
     public String toString(){
+        if(this != null)
         return getId()+". Сотрудник: "+getLastName()+" "+getFirstName()+" "+getSurName()+"; Отдел №"+getDepart()+" Получает зарплату: "+getSalary()+" руб.";
+        else return "Сотрудник отсутсвует";
     }
 }
