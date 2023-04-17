@@ -2,7 +2,7 @@ package Homework14;
 
 public class Main {
     public static void main(String[] args) {
-        Bicycle[] machines = {
+        Machine[] machines = {
                 new Car("car1", 4),
                 new Car("car2", 4),
                 new Truck("truck1", 6),
@@ -11,7 +11,7 @@ public class Main {
                 new Bicycle("bicycle2", 2)
         };
         ServiceStation station = new ServiceStation();
-        for (Bicycle machine : machines) {
+        for (Machine machine : machines) {
             station.check(machine);
         }
     }

@@ -1,10 +1,11 @@
 package Homework14;
 
-public class Car extends Bicycle{
+public class Car extends Machine{
     public Car(String modelName, int wheelsCount) {
         super(modelName, wheelsCount);
     }
-    public void checkEngine() {
+    @Override
+    public void checkDetails() {
         System.out.println("Проверяем двигатель");
     }
 }
