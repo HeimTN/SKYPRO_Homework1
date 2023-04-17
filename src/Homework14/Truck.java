@@ -1,6 +1,6 @@
 package Homework14;
 
-public class Truck extends Car{
+public class Truck extends Machine{
     public Truck(String modelName, int wheelsCount) {
         super(modelName, wheelsCount);
     }
